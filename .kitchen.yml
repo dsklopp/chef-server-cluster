@@ -2,18 +2,21 @@
 driver:
   name: vagrant
   customize:
-    memory: 512
+    memory: 1024
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-14.04
+  - name: ubuntu-12.04
 
 suites:
   - name: fullstack
     run_list:
-      - recipe[chef-server-cluster::default]
+      - recipe[chef-server-cluster::standalone]
+    driver:
+      network:
+        - ["private_network", {ip: "192.168.33.7"}]
     attributes:
       ec:
         couchdb:
